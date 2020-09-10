@@ -1,0 +1,21 @@
+include PUG-Bootstrap/_bootstrap
+html
+    head
+        title=title
+body
+    .row(style='margin:50px;')
+        .col-md-3
+        .col-md-6
+            .panel.panel-success()
+                .panel-heading Редагувати користувача
+                .panel-body
+                    form(action="/users/"+id class="mx-auto", method="POST")
+                        p Email
+                        input( type="text", name='email', class="form-control", value=user['email'])
+                        p Ім'я
+                        input(type="text", name='name', class="form-control", value=user['name'])
+                        p Прізвище
+                        input(type="text", name='surname', class="form-control", value =user['surname'])
+                        p По-батькові
+                        input(type="text", name='fathername', class="form-control", value=user['fathername'])
+                        button(type="submit" class="btn btn-success") Зберегти

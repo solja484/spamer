@@ -1,0 +1,54 @@
+include PUG-Bootstrap/_bootstrap
+html
+	head
+		title=title
+body
+
+	.row(style='margin:50px;')
+		.col-md-8
+			.panel.panel-info()
+				.panel-heading Розсилка спаму
+				.panel-body
+					p Виберіть повідомлення
+					form(action="/spam", class="mx-auto", method="POST")
+						div(class="form-group")
+							select(class="form-control", name='selection')
+								each j in messages
+									option(name=j, value=j)= j
+						div(class="form-group")
+							input(type=text, name='message', placeholder='Введіть ваше повідомлення', class='form-control')
+						button(id="send-spam", class='btn btn-info' type=submit) Здійснити розсилку!
+
+
+			.panel.panel-default()
+				.panel-heading Отримувачі
+				.panel-body
+					table.table.table-striped
+						thead
+							tr
+								th Email
+								th Прізвище
+								th Ім'я
+								th По-батькові
+								th buttons
+						tbody
+						each user in users
+							tr
+								td #{user.email}
+								td #{user.surname}
+								td #{user.name}
+								td #{user.fathername}
+								td
+									a(id=user._id, class='btn btn-danger', href='/delete/'+user['_id']) видалити
+									a(id=user._id, class='btn btn-info', href='/edit/'+user['_id']) редагувати
+
+		.col-md-4
+			.panel.panel-success()
+				.panel-heading Додати користувача
+				.panel-body
+					form(action="/users" class="mx-auto" method="POST")
+						+input("text","new-email","Електронна пошта", "Електронна пошта",name='email')
+						+input("text","new-name", "Ім'я", "Ім'я",name='name')
+						+input("text","new-surname","Прізвище", "Прізвище", name='surname')
+						+input("text","new-fathername","По-батькові", "По-батькові", name='fathername')
+						button(type="submit" class="btn btn-success") Додати
