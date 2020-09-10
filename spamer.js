@@ -24,12 +24,12 @@ server.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 let messages = ['Посміхнись:)', 'Хорошого дня!', 'Вітаємо! Ви виграли машину!', 'Ваше повідомлення'];
 server.listen(8888);
 console.log('Server is running on port 8888');
-server.set('view engine', 'pug');
+server.set('view engine', 'views/pug');
 
 server.get('/', function (req, res) {
 
     db.collection("users").find().toArray(function (err, data) {
-        res.render(__dirname + "/spamer-page.pug", {users: data, messages: messages});
+        res.render(__dirname + "/views/spamer-page.pug", {users: data, messages: messages});
     });
 });
 
@@ -68,7 +68,7 @@ server.get('/edit/:id',function(req,res){
     db.collection("users").findOne(ObjectId(req.params.id)).then(
         ( data, err)=> {
         if (err) return console.log(err);
-        res.render(__dirname + "/spamer-edit.pug", {user: data,id:req.params.id});
+        res.render(__dirname + "/views/spamer-edit.pug", {user: data,id:req.params.id});
     });
 });
 
